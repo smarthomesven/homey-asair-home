@@ -1,0 +1,41 @@
+{
+  "id": "com.asairhome",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "American Standard Home"
+  },
+  "description": {
+    "en": "Built To A Higher Standard"
+  },
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "nexia",
+      "asair home",
+      "as air home"
+    ]
+  },
+  "brandColor": "#005E9C",
+  "source": "https://github.com/smarthomesven/homey-asair-home",
+  "bugs": {
+    "url": "https://github.com/smarthomesven/homey-asair-home/issues"
+  },
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Sven Serlier",
+    "email": "sven@dypodex.com"
+  }
+}

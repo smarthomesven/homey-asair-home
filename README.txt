@@ -1,0 +1,1 @@
+Connect your American Standard Home devices to Homey. Both single-zone and multi-zone thermostats are supported (in case of multi-zone, each zone is added separately).
