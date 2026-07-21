@@ -83,8 +83,8 @@ module.exports = class ThermostatDriver extends Homey.Driver {
       } catch (error) {
         this.error("Login error", error.message);
         this.error("Login error stack", error.stack);
-        if (error.response && error.response.status === 401) {
-          return false;
+        if (error.response?.data) {
+          this.error("Login error response data", error.response.data);
         }
         return false;
       }
