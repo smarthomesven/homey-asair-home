@@ -13,5 +13,8 @@
   },
   "1.0.4": {
     "en": "Added more logging"
+  },
+  "1.0.5": {
+    "en": "Update mobile app version number in login"
   }
 }
