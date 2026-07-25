@@ -38,7 +38,7 @@ module.exports = class ThermostatDriver extends Homey.Driver {
         const response = await axios.post('https://www.mynexia.com/mobile/accounts/sign_in',  {
           device_name: "samsung SM-A515F",
           device_uuid: deviceUuid,
-          app_version: "8.13.0",
+          app_version: "8.14.0",
           is_commercial: false,
           login: username,
           password: password,
@@ -54,7 +54,7 @@ module.exports = class ThermostatDriver extends Homey.Driver {
         this.homey.settings.set('mobileId', mobileId);
         const sessionresponse = await axios.post('https://www.mynexia.com/mobile/session',  {
           app_identifier: "com.schlagelink.android",
-          app_version: "8.13.0",
+          app_version: "8.14.0",
           platform: "android"
         }, {
           headers: {
@@ -112,7 +112,7 @@ module.exports = class ThermostatDriver extends Homey.Driver {
 
     const sessionResponse = await axios.post('https://www.mynexia.com/mobile/session', {
       app_identifier: 'com.schlagelink.android',
-      app_version: '8.13.0',
+      app_version: '8.14.0',
       platform: 'android',
     }, {
       headers: {
