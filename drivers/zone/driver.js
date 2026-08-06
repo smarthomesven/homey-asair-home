@@ -42,6 +42,12 @@ module.exports = class ThermostatDriver extends Homey.Driver {
           is_commercial: false,
           login: username,
           password: password,
+        }, {
+          headers: {
+            'x-appcode': 'nereus',
+            'x-appversion': '8.14.0',
+            'x-associatedbrand': 'asair',
+          }
         });
         this.log("Login response",response.data);
         const key = response.data.result.api_key;
