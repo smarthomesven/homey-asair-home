@@ -15,12 +15,15 @@
       <div class="homey-form-group">
         <label class="homey-form-label" for="email" data-i18n="pair.email">Username</label>
         <input class="homey-form-input" id="email" type="text" value="" />
+        <p id="nousername" class="error" data-i18n="pair.nousername">Please enter your username.</p>
       </div>
       <div class="homey-form-group">
         <label class="homey-form-label" for="password" data-i18n="pair.password">Password</label>
         <input class="homey-form-input" id="password" type="password" value="" />
+        <p id="nopassword" class="error" data-i18n="pair.nopassword">Please enter your password.</p>
       </div>
     </fieldset>
+    <p id="invalid" class="error" data-i18n="pair.invalid">Invalid username or password.</p>
     <p id="failed" class="error" data-i18n="pair.failed">Something went wrong, please try again.</p>
 
     <button id="save" class="homey-button-primary-full" data-i18n="pair.save">Save</button>
@@ -29,14 +32,38 @@
       const passwordElement = document.getElementById('password');
       const errorElement = document.getElementById('failed');
       const saveElement = document.getElementById('save');
+      const nousername = document.getElementById('nousername');
+      const nopassword = document.getElementById('nopassword');
+      const invalid = document.getElementById('invalid');
       errorElement.style.display = 'none';
         saveElement.addEventListener("click", function (e) {
           setSaving();
+          nousername.style.display = 'none';
+          nopassword.style.display = 'none';
+          invalid.style.display = 'none';
+          errorElement.style.display = 'none';
           const email = emailElement.value;
           const password = passwordElement.value;
+          if (!email) {
+            nousername.style.display = 'block';
+            setSave();
+            return;
+          }
+          if (!password) {
+            nopassword.style.display = 'block';
+            setSave();
+            return;
+          }
           Homey.emit("login", { email: email, password: password  }).then(function (result) {
-            if (result === false) {
-              errorElement.style.display = 'block';
+            if (result.success === false) {
+              if (result.error === "INVALID") {
+                invalid.style.display = 'block';
+                setSave();
+              } else {
+                errorElement.style.display = 'block';
+                setSave();
+              }
+            } else {
               setSave();
             }
           });

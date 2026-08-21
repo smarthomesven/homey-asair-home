@@ -32,7 +32,7 @@ module.exports = class ThermostatDriver extends Homey.Driver {
         const username = data.email;
         const password = data.password;
         if (!data.email || !data.password) {
-          return false;
+          return { success: false, error: "FAILED" };
         }
         const deviceUuid = crypto.randomUUID();
         const response = await axios.post('https://www.mynexia.com/mobile/accounts/sign_in',  {
@@ -52,7 +52,9 @@ module.exports = class ThermostatDriver extends Homey.Driver {
         this.log("Login response",response.data);
         const key = response.data.result.api_key;
         const mobileId = response.data.result.mobile_id;
-        if (response.data.success !== true) return false;
+        if (response.data.success !== true) {
+          return { success: false, error: "INVALID" };
+        }
         this.homey.settings.set('username', username);
         this.homey.settings.set('password', password);
         this.homey.settings.set('deviceUuid', deviceUuid);
@@ -85,14 +87,18 @@ module.exports = class ThermostatDriver extends Homey.Driver {
         this.log("House response",houseResponse.data);
         this.homey.settings.set('loggedIn', true);
         await session.showView('list_devices');
-        return true;
+        return { success: true };
       } catch (error) {
         this.error("Login error", error.message);
         this.error("Login error stack", error.stack);
         if (error.response?.data) {
           this.error("Login error response data", error.response.data);
+          const errorMessage = error.response.data.error.message;
+          if (errorMessage === 'Invalid username or password.') {
+            return { success: false, error: "INVALID"}
+          }
         }
-        return false;
+        return { success: false, error: "FAILED" };
       }
     });
     session.setHandler("list_devices", async () => {
