@@ -25,5 +25,8 @@
   },
   "1.0.8": {
     "en": "Improved pairing page"
+  },
+  "1.0.9": {
+    "en": "Update dependencies"
   }
 }
