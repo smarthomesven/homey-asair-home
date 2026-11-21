@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const HomeyPush = require('./lib/push');
 
 module.exports = class AmericanStandardApp extends Homey.App {
 
@@ -9,6 +10,12 @@ module.exports = class AmericanStandardApp extends Homey.App {
    */
   async onInit() {
     this.log('American Standard Home app has been initialized');
+    this.push = new HomeyPush(this);
+    await this.push.startPush();
+  }
+
+  async onUninit() {
+    this.push.stopPush();
   }
 
 };
